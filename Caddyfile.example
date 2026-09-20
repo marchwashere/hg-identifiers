@@ -1,5 +1,7 @@
-# Replace the domain and path. Merge into your existing Caddyfile.
-identifiers.example.com {
+# Replace example.com with your root domain and adjust the filesystem path.
+# Serves https://example.com/ directly; site/ is NOT a URL path prefix.
+# Merge into your existing Caddyfile.
+example.com {
     root * /srv/hg-identifiers/site
     encode zstd gzip
     header Cache-Control "no-cache"

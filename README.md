@@ -13,12 +13,11 @@ the saved route replay projected through its embedded parser.
 
 ## Serve with Caddy
 
-This repository is private. Give the server authenticated Git access, preferably
-a read-only SSH deploy key for this repository. Never commit credentials.
-Clone as your deployment user into a directory that user owns:
+This repository is public. HTTPS cloning and pulling require no GitHub login
+or deploy key. Clone as your deployment user into a directory that user owns:
 
 ```sh
-git clone git@github.com:marchwashere/hg-identifiers.git /srv/hg-identifiers
+git clone https://github.com/marchwashere/hg-identifiers.git /srv/hg-identifiers
 ```
 
 Use `Caddyfile.example`, replacing the domain and path as appropriate. Caddy
@@ -27,13 +26,17 @@ not the repository root (which contains `.git`). The Caddy service account needs
 read access to files and traversal access to their parent directories.
 
 ```caddyfile
-identifiers.example.com {
+example.com {
     root * /srv/hg-identifiers/site
     encode zstd gzip
     header Cache-Control "no-cache"
     file_server
 }
 ```
+
+Replace `example.com` with your root domain. The app is served at
+`https://example.com/`, not `/site/` or `/identifier/`: `site/` is only the
+filesystem document root. No path prefix or reverse proxy is needed.
 
 Merge the block into your existing configuration; do not replace unrelated sites.
 Validate and reload with your usual service workflow, for example on the
@@ -48,8 +51,8 @@ See Caddy's [static-file guide](https://caddyserver.com/docs/quick-starts/static
 and [compression reference](https://caddyserver.com/docs/caddyfile/directives/encode).
 Configure DNS and network access for your existing Caddy installation.
 
-**Private GitHub access does not make the website private.** Anyone who can visit
-the site can download its bundled data. Add server-side authentication if needed.
+**The source and bundled datasets are public on GitHub.** Anyone who can visit
+the site can also download its bundled data.
 Imported local JSON files stay in the browser and are not uploaded.
 
 ## Update the server
