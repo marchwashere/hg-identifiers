@@ -53,7 +53,7 @@ Configure DNS and network access for your existing Caddy installation.
 
 **The source and bundled datasets are public on GitHub.** Anyone who can visit
 the site can also download its bundled data.
-Imported local JSON files stay in the browser and are not uploaded.
+The bundled catalogue loads automatically; there are no upload or database-reload controls.
 
 ## Update the server
 

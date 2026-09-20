@@ -488,11 +488,11 @@
       root.innerHTML = `
         <div class="card">
           <h2>Run data filter</h2>
-          <p class="subtitle">${globalThis.FilterWeb ? "Choose Falkner or Whitney below, compare cluster win rates, then select a cluster. Only the selected cluster is downloaded. You can also open your own JSON files locally; they are not uploaded." : "Choose the directory containing your Scenario folders, compare cluster win rates, then select a cluster to identify a seed from the events you can see in battle."}</p>
-          <div class="row">
+          <p class="subtitle">${globalThis.FilterWeb ? "Choose Falkner or Whitney below, then select your cluster to identify a seed." : "Choose the directory containing your Scenario folders, compare cluster win rates, then select a cluster to identify a seed from the events you can see in battle."}</p>
+          ${globalThis.FilterWeb ? "" : `<div class="row">
             ${field(globalThis.FilterWeb ? "Hosted datasets" : "Scenario data directory", `<div class="directory-picker"><button type="button" id="filter-directory" ${globalThis.FilterWeb ? 'aria-label="Reload datasets"' : ""} ${this.choosingDirectory ? 'disabled aria-busy="true"' : ""}>${globalThis.FilterWeb ? "Reload datasets" : "Choose directory…"}</button><span class="mono">${esc(this.directoryPath || (globalThis.FilterWeb ? "Loading catalogue…" : "No directory selected"))}</span></div>`)}
             ${field("Or individual JSON files", `<input type="file" id="filter-files" accept=".json,application/json" multiple ${this.choosingDirectory ? "disabled" : ""} />`)}
-          </div>
+          </div>`}
           <div class="notice" role="status" aria-live="polite">${esc(this.notice)}</div>
         </div>
         ${this.scenarios.length ? `<div class="card"><h2>Scenarios</h2><div class="dataset-grid">${this.scenarios.map((entry, index) => `
@@ -511,8 +511,8 @@
     },
 
     wire(root) {
-      root.querySelector("#filter-directory").addEventListener("click", () => this.chooseDirectory());
-      root.querySelector("#filter-files").addEventListener("change", (event) => this.loadFiles([...event.target.files]));
+      root.querySelector("#filter-directory")?.addEventListener("click", () => this.chooseDirectory());
+      root.querySelector("#filter-files")?.addEventListener("change", (event) => this.loadFiles([...event.target.files]));
       root.querySelectorAll("[data-scenario]").forEach((button) =>
         button.addEventListener("click", () => this.selectScenario(Number(button.dataset.scenario)))
       );

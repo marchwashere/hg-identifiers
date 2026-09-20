@@ -127,7 +127,7 @@ async function startFilter() {
     status.textContent = "Ready";
   } catch (error) {
     view.notice = window.FilterWeb
-      ? `Could not load hosted datasets: ${String(error)}. Use Reload datasets to retry.`
+      ? `Could not load hosted datasets: ${String(error)}. Refresh the page to retry.`
       : `Could not open the initial directory: ${String(error)}. Choose a directory to continue.`;
     status.textContent = window.FilterWeb ? "Dataset load failed" : "Choose a directory";
   } finally {

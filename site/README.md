@@ -19,9 +19,9 @@ cluster shows its win rate before selection. Full data downloads only after
 selection. Original observations are used for identification, and the saved
 parser projects actual route replay events for the solution display.
 
-Individual JSON files can still be opened through the file input. These are
-read locally in the browser and **are not uploaded**. Reload datasets returns
-to the bundled catalogue. There is no analytics or third-party network call.
+The bundled catalogue loads automatically. There are no JSON upload or dataset
+reload controls. If loading fails, refresh the page to retry. There is no
+analytics or third-party network call.
 
 ## Hosting and caching
 
