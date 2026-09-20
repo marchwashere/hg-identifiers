@@ -1,0 +1,9 @@
+# Preserve exact content-addressed asset bytes on Windows and Linux.
+site/data/*.json -text
+site/catalog.json -text
+*.js text eol=lf
+*.cjs text eol=lf
+*.css text eol=lf
+*.html text eol=lf
+*.md text eol=lf
+Caddyfile.example text eol=lf
