@@ -4,9 +4,11 @@ Standalone static browser version of the Gen 4 seed identifier. The readable
 HTML, CSS and JavaScript in `site/` are both the source and deployable application.
 No build, backend, database or production Node dependency is required.
 
-Bundled snapshot (2026-09-20): **22 Falkner clusters / 4,695 fights** and
-**151 Whitney clusters / 96,779 fights**. All original JSON fields are retained;
-only whitespace is removed. Data occupies about 420 MB uncompressed. The browser
+Bundled snapshots: **22 Falkner clusters / 4,695 fights** (2026-09-20) and
+**151 Whitney clusters / 96,779 fights** (updated 2026-09-24). All original JSON fields are retained;
+only whitespace is removed. Active data occupies about 420 MB uncompressed.
+Previous hashed assets are retained for already-open browser sessions and rollback.
+The browser
 loads catalogue metadata first and only one selected cluster's full data at a
 time. Identification uses original visible observations; solution display uses
 the saved route replay projected through its embedded parser.
