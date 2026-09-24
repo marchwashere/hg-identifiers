@@ -16,6 +16,9 @@ Nonlethal enemy recoil is hidden unless recoil HP is enabled. Recoil deaths and
 residual deaths remain explicit; old `burn dmg` / `poison dmg` labels mean
 `fainted to burn/poison`. Random status infliction and own visible HP remain.
 Existing bundled data is normalized at read time, without rewriting fights.
+Item events display without the `item ` prefix. Player/enemy event choices are
+sorted by frequency among compatible seeds, most common first, with alphabetical
+ties. Counts follow the other selected observations; HP remains numerically sorted.
 
 ## Serve with Caddy
 

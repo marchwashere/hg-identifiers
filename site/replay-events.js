@@ -10,7 +10,8 @@
   function normalizeVisibleEvents(values, player = true) {
     return (Array.isArray(values) ? values : []).flatMap(value => {
       if (!player && value === "recoil") return [];
-      return [deathLabels[value] || value];
+      const label = Object.hasOwn(deathLabels, value) ? deathLabels[value] : value;
+      return [typeof label === "string" ? label.replace(/^item\s+/, "") : label];
     });
   }
   function projectReplayTurn(turn, parser = {}, turnNumber = 1) {

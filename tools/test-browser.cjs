@@ -94,6 +94,7 @@ async function main(){
     assert.equal(await page.locator('input[type="file"], #filter-directory').count(),0);
     assert.equal(dataRequests(),priorDataRequests);
     assert(network.every(u=>u.startsWith(url+'/')),'no third-party requests');
+    await require('./assert_event_frequency.cjs')(page);
     assert.deepEqual(errors,[]);
     console.log(`PASS: ${catalogue.files.length} catalogue entries; automatic metadata-only startup; no import/reload controls; root/subdirectory hosting; lazy loads; cue filtering; structured replay; page-refresh recovery; 640px layout; no Tauri or third-party requests.`);
   } finally {await browser.close();}

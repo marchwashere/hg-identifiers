@@ -76,13 +76,13 @@
   }
 
   function optionsFor(fights, turn) {
-    const options = { player: new Set(), npc: new Set(), hp: new Set() };
+    const options = { player: new Map(), npc: new Map(), hp: new Map() };
     for (const fight of fights) {
       const cue = cueAt(fight, turn);
       if (!cue) continue;
-      options.player.add(cue.player);
-      options.npc.add(cue.npc);
-      options.hp.add(cue.hp);
+      for (const type of ["player", "npc", "hp"]) {
+        options[type].set(cue[type], (options[type].get(cue[type]) || 0) + 1);
+      }
     }
     return options;
   }
@@ -109,10 +109,14 @@
   }
 
   function sortedOptionValues(type, available, valid) {
-    return [...available].sort((a, b) => {
+    return [...available.keys()].sort((a, b) => {
       const validityOrder = Number(valid.has(b)) - Number(valid.has(a));
       if (validityOrder) return validityOrder;
       if (type === "hp") return Number(a) - Number(b);
+      // Counts respect earlier observations and the other columns, not this
+      // column's selection, so alternative choices remain comparable.
+      const frequencyOrder = (valid.get(b) || 0) - (valid.get(a) || 0);
+      if (frequencyOrder) return frequencyOrder;
       return cueLabel(a).localeCompare(cueLabel(b));
     });
   }
