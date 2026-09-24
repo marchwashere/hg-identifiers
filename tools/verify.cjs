@@ -3,7 +3,14 @@ const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const root = path.resolve(process.argv[2] || path.join(__dirname, '../site'));
-const {projectReplayTurn} = require(path.join(root, 'replay-events.js'));
+const {projectReplayTurn, normalizeVisibleEvents} = require(path.join(root, 'replay-events.js'));
+const recoilTurn = hp => ({event_schema:1,player_hp:12,player_events:[{kind:'recoil',hp:12}],npc_events:[{kind:'recoil',hp}]});
+assert.deepEqual(projectReplayTurn(recoilTurn(20)).npc, []);
+assert.deepEqual(projectReplayTurn(recoilTurn(20),{enemy_recoil_hp:true}).npc, ['recoil, 20 HP left']);
+assert.deepEqual(projectReplayTurn(recoilTurn(0)).npc, ['fainted to recoil']);
+assert.deepEqual(projectReplayTurn(recoilTurn(20)).player, ['12 HP after recoil']);
+assert.deepEqual(normalizeVisibleEvents(['burn','poison','burn dmg','poison dmg','recoil'],false),
+  ['burn','poison','fainted to burn','fainted to poison']);
 const catalog = JSON.parse(fs.readFileSync(path.join(root, 'catalog.json')));
 assert.equal(catalog.schema_version, 1);
 assert(Array.isArray(catalog.files) && catalog.files.length > 0);

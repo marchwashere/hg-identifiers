@@ -10,6 +10,10 @@ only whitespace is removed. Data occupies about 420 MB uncompressed. The browser
 loads catalogue metadata first and only one selected cluster's full data at a
 time. Identification uses original visible observations; solution display uses
 the saved route replay projected through its embedded parser.
+Nonlethal enemy recoil is hidden unless recoil HP is enabled. Recoil deaths and
+residual deaths remain explicit; old `burn dmg` / `poison dmg` labels mean
+`fainted to burn/poison`. Random status infliction and own visible HP remain.
+Existing bundled data is normalized at read time, without rewriting fights.
 
 ## Serve with Caddy
 

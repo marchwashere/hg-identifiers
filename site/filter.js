@@ -56,8 +56,8 @@
     const cue = fight.visible_turns?.[turn];
     if (!cue) return null;
     return {
-      player: cueKey(cue.player),
-      npc: cueKey(cue.npc),
+      player: cueKey(normalizeVisibleEvents(cue.player, true)),
+      npc: cueKey(normalizeVisibleEvents(cue.npc, false)),
       hp: String(cue.player_end_hp),
     };
   }
